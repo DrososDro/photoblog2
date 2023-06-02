@@ -5,8 +5,14 @@ from django.urls import reverse
 from tags.models import Tag
 from reviews.models import Review
 from account.models import Account
+import os
+
 
 # Create your models here.
+def generate_filename(instance, filename):
+    extension = os.path.splitext(filename)[1]
+    new_filename = "{}{}".format(uuid.uuid4(), extension)
+    return new_filename
 
 
 class Article(models.Model):
@@ -53,8 +59,6 @@ class MultipleImages(models.Model):
     article = models.ForeignKey(
         Article,
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
     )
     image = models.FileField(
         null=True,
@@ -70,3 +74,6 @@ class MultipleImages(models.Model):
         if self.image:
             return self.image.url
         return ""
+
+    def __str__(self):
+        return str(self.image)

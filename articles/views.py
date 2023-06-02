@@ -6,6 +6,7 @@ from django.views.generic.list import QuerySet
 from .models import Article, MultipleImages
 from .forms import AddArticleForm
 from tags.models import Tag
+import uuid
 
 # Create your views here.
 
@@ -72,6 +73,12 @@ class CreateArticle(CreateView):
                 tag_instance, _ = Tag.objects.get_or_create(title=tag)
                 self.object.tags.add(tag_instance)
 
+        images = self.request.FILES.getlist("images")
+        for image in images:
+            image.name = f"{uuid.uuid4()}.{image.name.split('.')[-1]}"
+            MultipleImages.objects.create(article=self.object, image=image)
+
+        # return redirect("create-article")
         return redirect(self.success_url)
 
     def form_valid(self, form, *args, **kwargs):
