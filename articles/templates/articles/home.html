@@ -1,51 +1,62 @@
 {% extends "main.html" %}
 {% block blockname %}
-<section>
-  <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 align-self-center p-static order-2 text-center">
-          <h1 class="text-dark font-weight-bold text-8">Home</h1>
-          <span class="sub-title text-dark"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="container py-4">
-    <div class="row">
-      <div class="col">
-        <div class="blog-posts blog-posts-no-margins">
-          <div class="masonry-loader masonry-loader-showing">
-            <div class="masonry row" data-plugin-masonry data-plugin-options="{'itemSelector': '.masonry-item'}">
-              {% for image in object_list %}
-              <div class="masonry-item no-default-style col-md-4 p-0">
-                <article class="post">
-                  <div class="post-image">
-                    <a href="{{ image.article.get_URL }}">
-                      <span
-                        class="thumb-info thumb-info-no-borders thumb-info-lighten thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-dark-linear thumb-info-centered-icons">
-                        <span class="thumb-info-wrapper">
-                          <img src="{{ image.image_url }}" class="img-fluid" alt="">
-                          <span class="thumb-info-title">
-                            <span class="thumb-info-inner">{{ image.article.title }}</span>
-                            <span class="thumb-info-type p-relative bottom-4"></span>
-                          </span>
-                          <span class="thumb-info-action">
-                            <span class="thumb-info-action-icon thumb-info-action-icon-light"><i
-                                class="fas fa-link text-dark"></i></span>
-                          </span>
-                        </span>
-                      </span>
-                    </a>
-                  </div>
-                </article>
-              </div>
-              {% endfor %}
+    <section>
+        <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 align-self-center p-static order-2 text-center">
+                        <h1 class="text-dark font-weight-bold text-8">Home</h1>
+                        <span class="sub-title text-dark"></span>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{% endblock blockname %}
+        </section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <div class="blog-posts blog-posts-no-margins">
+                        <div class="masonry-loader masonry-loader-showing">
+                            <div class="masonry row"
+                                 data-plugin-masonry
+                                 data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                <div class="lightbox mt-3"
+                                     data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
+                                    <div class="masonry-loader masonry-loader-showing">
+                                        <div class="masonry"
+                                             data-plugin-masonry
+                                             data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                            {% for image in object_list %}
+                                                <div class="masonry-item no-default-style col-md-4 p-0">
+                                                    <article class="post">
+                                                        <div class="post-image">
+                                                            <span class="thumb-info thumb-info-no-borders thumb-info-lighten thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-dark-linear thumb-info-centered-icons">
+                                                                <span class="thumb-info-wrapper">
+                                                                    <img src="{{ image.image_url }}" class="img-fluid" alt="">
+                                                                    <span class="thumb-info-title">
+                                                                        <span class="thumb-info-inner">{{ image.article.title }}</span>
+                                                                        <span class="thumb-info-type p-relative bottom-4"></span>
+                                                                    </span>
+                                                                    <span class="thumb-info-action">
+                                                                        <a href="{{ image.article.get_URL }}">
+                                                                            <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-link text-dark"></i></span>
+                                                                        </a>
+                                                                        <a href="{{ image.image_url }}" class="lightbox-portfolio">
+                                                                            <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
+                                                                        </a>
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock blockname %}
