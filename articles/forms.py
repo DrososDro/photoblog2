@@ -3,20 +3,6 @@ from .models import Article
 
 
 class AddArticleForm(forms.ModelForm):
-    """
-
-    add_tags = forms.CharField(
-        label="Add Tags",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control text-3 h-auto py-2",
-                "placeholder": "#YourTag #YourTag",
-                "pattern": "^(#(\w+)\s*)+$",
-            }
-        ),
-    )
-    """
-
     class Meta:
         model = Article
         fields = ["title", "description", "tags"]
@@ -37,17 +23,3 @@ class AddArticleForm(forms.ModelForm):
                         "placeholder": f"Enter {name}".title(),
                     }
                 )
-
-    def _save_m2m(self):
-        return super()._save_m2m()
-        """
-        if add_tags:
-            tags = add_tags.replace("#", " ").split()
-        for tag in tags:
-            try:
-                tag_instance, _ = Tag.objects.get_or_create(title=tag)
-                self.instance.tags.add(tag_instance)
-            except Exception:
-                pass
-            print(self.instance.tags.all())
-        """

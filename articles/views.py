@@ -1,5 +1,5 @@
-from django.db import IntegrityError
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import QuerySet
@@ -62,48 +62,18 @@ class CreateArticle(CreateView):
     form_class = AddArticleForm
     success_url = reverse_lazy("articles")
 
-    def form_valid(self, form, *args, **kwargs):
-        form.instance.owner = self.request.user
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+
         add_tags = self.request.POST.get("add_tags")
         tags = add_tags.replace("#", " ").split()
-        (form.tags.all())
-        return super().form_valid(form, *args, **kwargs)
-
-    """
         if add_tags:
-            instance.save()
             for tag in tags:
-                print(type(instance))
-                try:
-                    tag_instance, _ = Tag.objects.get_or_create(title=tag)
-                    tag_in = Tag.objects.get(title=tag)
-                    instance.tags.add(tag_in)
-                    instance.save()
-                    print(instance.tags.all())
+                tag_instance, _ = Tag.objects.get_or_create(title=tag)
+                self.object.tags.add(tag_instance)
 
-                except IntegrityError:
-                    pass
+        return redirect(self.success_url)
 
-        form.save_m2m()
-
-        print(instance.tags.all())
-    """
-
-
-"""
-
-
-def create_view(request):
-    form = AddArticleForm()
-    if request.method == "POST":
-        form = AddArticleForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.owner = request.user
-            print("before save")
-            instance.save()
-            print("save")
-            return redirect("home")
-    context = {"form": form}
-    return render(request, "articles/add_article.html", context)
-"""
+    def form_valid(self, form, *args, **kwargs):
+        form.instance.owner = self.request.user
+        return super().form_valid(form, *args, **kwargs)
