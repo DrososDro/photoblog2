@@ -1,0 +1,194 @@
+{% extends "main.html" %}
+{% block blockname %}
+    <!--single article-->
+    <section>
+        <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md ">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        {% if prev_article %}
+                            <a href="{{ prev_article.get_URL }}"
+                               class="portfolio-prev text-decoration-none d-block appear-animation"
+                               data-appear-animation="fadeInRightShorter">
+                                <div class="d-flex align-items-center line-height-1">
+                                    <i class="fas fa-arrow-left text-dark text-4 me-3"></i>
+                                    <div class="d-none d-sm-block line-height-1">
+                                        <span class="text-dark opacity-4 text-1">PREVIOUS ARTICLE</span>
+                                        <h4 class="font-weight-bold text-3 mb-0">{{ prev_article.title|truncatewords:"5" }}</h4>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-12 align-self-center p-static order-2 text-center">
+                                <div class="overflow-hidden pb-2">
+                                    <h1 class="text-dark font-weight-bold text-9 appear-animation"
+                                        data-appear-animation="maskUp"
+                                        data-appear-animation-delay="100">{{ article.title }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        {% if next_article %}
+                            <a href="{{ next_article.get_URL }}"
+                               class="portfolio-next text-decoration-none d-block float-end appear-animation"
+                               data-appear-animation="fadeInLeftShorter">
+                                <div class="d-flex align-items-center text-end line-height-1">
+                                    <div class="d-none d-sm-block line-height-1">
+                                        <span class="text-dark opacity-4 text-1">NEXT ARTICLE</span>
+                                        <h4 class="font-weight-bold text-3 mb-0">{{ next_article.title|truncatewords:"5" }}</h4>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-dark text-4 ms-3"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container py-2">
+            <div class="row pb-4 mb-3">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="d-block pb-2 text-center">
+                        <input type="text"
+                               class="rating-invisible"
+                               value="{{ article.average_rating }}"
+                               title=""
+                               data-plugin-star-rating
+                               data-plugin-options="{'displayOnly': true, 'color': 'dark', 'size':'xl'}" />
+                    </div>
+                    <div class="lightbox mt-3"
+                         data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
+                        <div class="masonry-loader masonry-loader-showing">
+                            <div class="masonry"
+                                 data-plugin-masonry
+                                 data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                {% for image in article.images %}
+                                    <div class="masonry-item">
+                                        <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                            <span class="thumb-info-wrapper">
+                                                <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                                <span class="thumb-info-action">
+                                                    <a href="{{ image.image_url }}" class="lightbox-portfolio">
+                                                        <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr class="solid my-5 appear-animation"
+                            data-appear-animation="fadeIn"
+                            data-appear-animation-delay="1000">
+                        <div class="appear-animation"
+                             data-appear-animation="fadeInRightShorter"
+                             data-appear-animation-delay="1200">
+                            <strong class="text-uppercase text-1 me-3 text-dark float-start position-relative top-2">Share</strong>
+                            <ul class="social-icons">
+                                <li class="social-icons-facebook">
+                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="overflow-hidden">
+                            <h2 class="text-color-dark font-weight-normal text-4 mb-0 pt-1 appear-animation"
+                                data-appear-animation="maskUp"
+                                data-appear-animation-delay="300">
+                                Article <strong class="font-weight-extra-bold">Description</strong>
+                            </h2>
+                        </div>
+                        <p class="appear-animation"
+                           data-appear-animation="fadeInUpShorter"
+                           data-appear-animation-delay="500">{{ article.description }}</p>
+                        <div class="overflow-hidden">
+                            <h2 class="text-color-dark font-weight-normal text-4 mb-0 mt-4 appear-animation"
+                                data-appear-animation="maskUp"
+                                data-appear-animation-delay="700">
+                                Article <strong class="font-weight-extra-bold">Details</strong>
+                            </h2>
+                        </div>
+                        <ul class="list list-icons list-primary list-borders text-2 appear-animation"
+                            data-appear-animation="fadeInUpShorter"
+                            data-appear-animation-delay="900">
+                            <li>
+                                <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Client:</strong> Okler
+                                Themes
+                            </li>
+                            <li>
+                                <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Date:</strong>
+                                {{ article.created_at }}
+                            </li>
+                            <li>
+                                <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Tags:</strong>
+                                {% for tag in article.tags.all %}
+                                    <a href="#"
+                                       class="badge badge-dark badge-sm rounded-pill px-2 py-1 ms-1">{{ tag }}</a>
+                                {% endfor %}
+                            </li>
+                            {% for article in articles %}
+                                <li>
+                                    <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Project
+                                        URL:</strong> <a href="#" target="_blank" class="text-dark">{{ article }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="tab-pane px-0 py-3" id="productReviews">
+                        <ul class="comments">
+                            {% for review in article.reviews.all %}
+                                <li>
+                                    <div class="comment">
+                                        <div class="img-thumbnail border-0 p-0 d-none d-md-block">
+                                            <img class="avatar rounded-circle" alt="" src="img/avatars/avatar.jpg">
+                                        </div>
+                                        <span class="">Jack Doe</span>
+                                        <div class="comment-block">
+                                            <div class="comment-arrow"></div>
+                                            <span class="comment-by">
+                                                <strong>{{ review.title }}</strong>
+                                                <span class="float-end">
+                                                    <div class="pb-0 clearfix">
+                                                        <div title="Rated 3 out of 5" class="float-start">
+                                                            <input type="text"
+                                                                   class="d-none"
+                                                                   value="3"
+                                                                   title=""
+                                                                   data-plugin-star-rating
+                                                                   data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs'}">
+                                                        </div>
+                                                        <div class="review-num">
+                                                            <span class="count" itemprop="ratingCount">
+                                                                <input type="text"
+                                                                       class="rating-invisible"
+                                                                       value="{{ review.star_rating }}"
+                                                                       title=""
+                                                                       data-plugin-star-rating
+                                                                       data-plugin-options="{'displayOnly': true, 'color': 'dark', 'size':'xs'}" />
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </span>
+                                            <p>{{ review.description }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--end of single article-->
+        {% endblock blockname %}
