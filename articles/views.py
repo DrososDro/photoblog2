@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.edit import CreateView
-from django.views.generic.list import QuerySet
 from .models import Article, MultipleImages
 from .forms import AddArticleForm
 from tags.models import Tag
+from .utils import add_tags_too_instance, multiple_image_add
 import uuid
 
 # Create your views here.
@@ -63,20 +63,19 @@ class CreateArticle(CreateView):
     form_class = AddArticleForm
     success_url = reverse_lazy("articles")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = reverse("create-article")
+        context["button"] = "Create Article"
+
+        return context
+
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
 
-        add_tags = self.request.POST.get("add_tags")
-        tags = add_tags.replace("#", " ").split()
-        if add_tags:
-            for tag in tags:
-                tag_instance, _ = Tag.objects.get_or_create(title=tag)
-                self.object.tags.add(tag_instance)
-
-        images = self.request.FILES.getlist("images")
-        for image in images:
-            image.name = f"{uuid.uuid4()}.{image.name.split('.')[-1]}"
-            MultipleImages.objects.create(article=self.object, image=image)
+        # add tags and images from the fields
+        add_tags_too_instance(self.request, self.object)
+        multiple_image_add(self.request, self.object)
 
         # return redirect("create-article")
         return redirect(self.success_url)
@@ -84,3 +83,31 @@ class CreateArticle(CreateView):
     def form_valid(self, form, *args, **kwargs):
         form.instance.owner = self.request.user
         return super().form_valid(form, *args, **kwargs)
+
+
+class UpdateArticle(UpdateView):
+    model = Article
+    template_name = "articles/add_article.html"
+    form_class = AddArticleForm
+    success_url = reverse_lazy("articles")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = reverse(
+            "update-article",
+            kwargs={
+                "pk": self.kwargs["pk"],
+            },
+        )
+        context["button"] = "Update Article"
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+
+        # add tags and images from the fields
+        add_tags_too_instance(self.request, self.object)
+        multiple_image_add(self.request, self.object)
+
+        return redirect(self.success_url)

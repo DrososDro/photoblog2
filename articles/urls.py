@@ -20,4 +20,9 @@ urlpatterns = [
         views.CreateArticle.as_view(),
         name="create-article",
     ),
+    path(
+        "update-article/<str:pk>",
+        views.UpdateArticle.as_view(),
+        name="update-article",
+    ),
 ]

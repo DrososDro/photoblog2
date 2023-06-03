@@ -1,56 +1,68 @@
 {% extends "main.html" %}
 {% block blockname %}
-<!--form for project and others-->
-<section>
-  <div class="container">
-    <div class="card bg-color-light-scale-1 mb-4">
-      <div class="card-body">
-        <div class="row">
-          <div class="col">
-            <form class="form-style-2" action="{% url 'create-article' %}" method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              {% for field in form %}
-              {% if field.label == "Tags" %}
-              <div class="row form-group">
-                <label class="form-label mb-1 text-2">{{ field.label }}</label>
-                <div class="form-group col ">
-                  {% for opt in field %}<div class="form-group form-check-inline">{{ opt }}</div>{% endfor %}
+    <!--form for project and others-->
+    <section>
+        <div class="container">
+            <div class="card bg-color-light-scale-1 mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <form class="form-style-2"
+                                  action="{{ action }}"
+                                  method="POST"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    {% if field.label == "Tags" %}
+                                        <div class="row form-group">
+                                            <label class="form-label mb-1 text-2">{{ field.label }}</label>
+                                            <div class="form-group col ">
+                                                {% for opt in field %}<div class="form-group form-check-inline">{{ opt }}</div>{% endfor %}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <label class="form-label mb-1 text-2">{{ field.label }}</label>
+                                                {{ field }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label mb-1 text-2">Add Tags</label>
+                                        <input type="text"
+                                               value=""
+                                               pattern="^(#(\w+)\s*)+$"
+                                               placeholder="#YourTag"
+                                               class="form-control text-3 h-auto py-2"
+                                               name="add_tags" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label mb-1 text-2">Upload Images</label>
+                                        <input type="file"
+                                               multiple
+                                               value=""
+                                               accept="image/*"
+                                               placeholder=""
+                                               class="form-control text-3 h-auto py-2"
+                                               name="images" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-primary">{{ button }}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              {% else %}
-              <div class="row">
-                <div class="form-group col">
-                  <label class="form-label mb-1 text-2">{{ field.label }}</label>
-                  {{ field }}
-                </div>
-              </div>
-              {% endif %}
-              {% endfor %}
-              <div class="row">
-                <div class="form-group col">
-                  <label class="form-label mb-1 text-2">Add Tags</label>
-                  <input type="text" value="" pattern="^(#(\w+)\s*)+$" placeholder="#YourTag"
-                    class="form-control text-3 h-auto py-2" name="add_tags" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col">
-                  <label class="form-label mb-1 text-2">Upload Images</label>
-                  <input type="file" multiple value="" accept="image/*" placeholder=""
-                    class="form-control text-3 h-auto py-2" name="images" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--from form project and others-->
+    </section>
+    <!--from form project and others-->
 {% endblock blockname %}
