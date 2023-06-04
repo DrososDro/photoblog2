@@ -107,7 +107,7 @@
                     </div>
                     <p class="appear-animation"
                        data-appear-animation="fadeInUpShorter"
-                       data-appear-animation-delay="500">{{ article.description }}</p>
+                       data-appear-animation-delay="500">{{ article.description|linebreaksbr }}</p>
                     <div class="overflow-hidden">
                         <h2 class="text-color-dark font-weight-normal text-4 mb-0 mt-4 appear-animation"
                             data-appear-animation="maskUp"
@@ -120,7 +120,7 @@
                         data-appear-animation-delay="900">
                         <li>
                             <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Creator:</strong>
-                            {{ article.owner.name }}
+                            {{ article.owner.name|title }}
                         </li>
                         <li>
                             <i class="fas fa-caret-right left-10"></i> <strong class="text-color-primary">Date:</strong>
@@ -152,7 +152,7 @@
                                     <div class="img-thumbnail border-0 p-0 d-none d-md-block">
                                         <img class="avatar rounded-circle" alt="" src="img/avatars/avatar.jpg">
                                     </div>
-                                    <span class="">{{ review.owner.name }}</span>
+                                    <span class="">{{ review.owner.name|title }}</span>
                                     <div class="comment-block">
                                         <div class="comment-arrow"></div>
                                         <span class="comment-by">

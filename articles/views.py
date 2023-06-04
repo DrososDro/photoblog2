@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView, ListView, UpdateView
@@ -6,7 +7,6 @@ from .models import Article, MultipleImages
 from .forms import AddArticleForm
 from tags.models import Tag
 from .utils import add_tags_too_instance, multiple_image_add
-import uuid
 
 # Create your views here.
 
@@ -20,6 +20,27 @@ class ArticlesView(ListView):
     model = Article
     template_name = "articles/articles.html"
     paginate_by = 4
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["search"] = True
+        context["search_action"] = reverse("articles")
+        context["search_name"] = "q_articles"
+
+        return context
+
+    def get_queryset(self):
+        if "q_articles" in self.request.GET:
+            q_articles = self.request.GET.get("q_articles")
+            tags = Tag.objects.filter(title__icontains=q_articles)
+            queryset = Article.objects.distinct().filter(
+                Q(title__icontains=q_articles)
+                | Q(description__icontains=q_articles)
+                | Q(tags__in=tags)
+            )
+            return queryset
+        else:
+            return super().get_queryset()
 
 
 class SingleArticleView(DetailView):
