@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.urls import reverse
 
 
 # Create your models here.
@@ -90,6 +91,9 @@ class Account(AbstractBaseUser):
             self.surname = self.surname.lower()
         super().save(*args, **kwargs)
 
+    def get_URL(self):
+        return reverse("artist", kwargs={"pk": self.id})
+
 
 class Perm(models.Model):
     id = models.UUIDField(
@@ -100,3 +104,28 @@ class Perm(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MultipleAccountImages(models.Model):
+    article = models.ForeignKey(
+        Account,
+        on_delete=models.CASCADE,
+    )
+    image = models.FileField(
+        null=True,
+        blank=True,
+        unique=True,
+        upload_to="account",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(
+        default=uuid.uuid4, unique=True, primary_key=True, editable=False
+    )
+
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return ""
+
+    def __str__(self):
+        return str(self.image)

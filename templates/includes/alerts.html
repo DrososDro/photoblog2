@@ -1,29 +1,32 @@
-<!--alerts-->
 <div class="col pb-3">
-
-    <hr>
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <strong>Well done!</strong> You are using a awesome template! <a href="#" class="alert-link">Say
-            Hi
-            to Porto </a>.
-    </div>
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <strong>Oh snap!</strong> Are you using other template? <a href="#" class="alert-link">Buy Porto
-            now</a> and make your customers a lot
-        happier.
-    </div>
-
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <strong><i class="fas fa-exclamation-triangle"></i>Oh snap!</strong> Change
-        a few
-        things up and try submitting again.
-        <ul>
-            <li>Inform your username.</li>
-            <li>Inform your password.</li>
-        </ul>
-    </div>
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            <strong><i class="fas fa-exclamation-triangle"></i>Oh snap!</strong> Change
+            a few things up and try submitting again.
+            <ul>
+                {% for key,error in form.errors.items %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 </div>
 <!--alerts-->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="alert alert-dismissible"
+                role="alert"
+                {% if message.tags %}class="alert-{{ message.tags }}"{% endif %}>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:{% endif %}
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

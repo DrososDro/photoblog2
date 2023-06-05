@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, Group
-from .models import Account, Perm
+from .models import Account, Perm, MultipleAccountImages
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -83,3 +83,4 @@ class MyCustomAdmin(UserAdmin):
 admin.site.unregister(Group)
 admin.site.register(Account, MyCustomAdmin)
 admin.site.register(Perm)
+admin.site.register(MultipleAccountImages)

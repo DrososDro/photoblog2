@@ -1,0 +1,138 @@
+{% extends "main.html" %}
+{% block blockname %}
+    <!--about artist-->
+    <section>
+        <div class="container pt-5">
+            <div class="row py-4 mb-2">
+                <div class="col-md-7 order-2">
+                    <div class="overflow-hidden">
+                        <h2 class="text-color-dark font-weight-bold text-12 mb-2 pt-0 mt-0 appear-animation"
+                            data-appear-animation="maskUp"
+                            data-appear-animation-delay="300">{{ object.full_name|title }}</h2>
+                    </div>
+                    <div class="overflow-hidden mb-3">
+                        <p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation"
+                           data-appear-animation="maskUp"
+                           data-appear-animation-delay="500">Marketing</p>
+                    </div>
+                    <p class="lead appear-animation"
+                       data-appear-animation="fadeInUpShorter"
+                       data-appear-animation-delay="700">{{ object.short_intro }}</p>
+                    <p class="pb-3 appear-animation"
+                       data-appear-animation="fadeInUpShorter"
+                       data-appear-animation-delay="800">
+                        {{ object.bio }}
+                        <hr class="solid my-4 appear-animation"
+                            data-appear-animation="fadeInUpShorter"
+                            data-appear-animation-delay="900">
+                        <div class="row align-items-center appear-animation"
+                             data-appear-animation="fadeInUpShorter"
+                             data-appear-animation-delay="1000">
+                            <div class="col-lg-6">
+                                <a href="#" class="btn btn-modern btn-dark mt-3">Get In Touch</a>
+                                <a href="#" class="btn btn-modern btn-primary mt-3">Hire Me</a>
+                            </div>
+                            <div class="col-sm-6 text-lg-end my-4 my-lg-0">
+                                <strong class="text-uppercase text-1 me-3 text-dark">follow me</strong>
+                                <ul class="social-icons float-lg-end">
+                                    <li class="social-icons-facebook">
+                                        <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="social-icons-twitter">
+                                        <a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="social-icons-linkedin">
+                                        <a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation"
+                         data-appear-animation="fadeInRightShorter">
+                        <img src="img/team/team-7.jpg" class="img-fluid mb-2" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container pt-5 pb-2">
+                <div class="overflow-hidden">
+                    <h2 class="text-color-dark font-weight-normal text-6 mb-0 appear-animation"
+                        data-appear-animation="maskUp">
+                        <strong class="font-weight-extra-bold">Articles</strong>
+                    </h2>
+                </div>
+                <div class="overflow-hidden mb-3"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="my-4 lightbox appear-animation"
+                             data-appear-animation="fadeInUpShorter"
+                             data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
+                            <div class="owl-carousel owl-theme pb-3"
+                                 data-plugin-options="{'items': 4, 'margin': 35, 'loop': false}">
+                                {% for article in object.article_set.all %}
+                                    <div class="portfolio-item">
+                                        <div class="masonry-item no-default-style col-md-0">
+                                            <article>
+                                                <a href="{{ article.get_URL }}">
+                                                    <div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
+                                                        <div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
+                                                            <div class="post-image ms-0">
+                                                                <div class="owl-carousel owl-theme show-nav-hover dots-inside nav-inside nav-style-1 nav-light"
+                                                                     style="margin: 0px;
+                                                                            max-height: 500px"
+                                                                     data-plugin-options="{'items': 1, 'margin': 0, 'loop': true, 'nav': true, 'dots': false, 'autoplay': true, 'autoplayTimeout': 3000}">
+                                                                    {% for image in article.images %}
+                                                                        <div>
+                                                                            <div class="img-thumbnail border-0 p-0 d-block">
+                                                                                <img src="{{ image.image.url }}" class="img-fluid" alt="not found" />
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="thumb-info-title bg-transparent p-4">
+                                                                <span class="thumb-info bg-transparent text-capitalize alternative-font font-weight-light">
+                                                                    <span class="text-5">( {{ article.total_votes }}
+                                                                    vote{{ article.total_votes|pluralize:'s' }} )</span>
+                                                                    <div class="d-block pb-2">
+                                                                        <input type="text"
+                                                                               class="rating-invisible"
+                                                                               value="{{ article.average_rating }}"
+                                                                               title=""
+                                                                               data-plugin-star-rating
+                                                                               data-plugin-options="{'displayOnly': true, 'color': 'dark', 'size':'xs'}" />
+                                                                    </div>
+                                                                </span>
+                                                                <div class="thumb-info-type bg-transparent text-4 px-2 mb-1">
+                                                                    {{ article.images.count }}
+                                                                    <i class="far fa-image"></i>
+                                                                </div>
+                                                                {% for tag in article.tags.all %}
+                                                                    <div class="thumb-info-type bg-transparent px-2 mb-1">{{ tag.title }}</div>
+                                                                {% endfor %}
+                                                                <div class="thumb-info-inner mt-1">
+                                                                    <h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">{{ article.title|truncatewords:7 }}</h2>
+                                                                </div>
+                                                                <div class="thumb-info-show-more-content">
+                                                                    <p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5 d-none d-lg-block">
+                                                                        {{ article.description|truncatewords:50 }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </article>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--about artist-->
+    {% endblock blockname %}
