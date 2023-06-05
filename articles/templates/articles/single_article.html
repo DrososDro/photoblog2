@@ -150,7 +150,9 @@
                             <li>
                                 <div class="comment">
                                     <div class="img-thumbnail border-0 p-0 d-none d-md-block">
-                                        <img class="avatar rounded-circle" alt="" src="img/avatars/avatar.jpg">
+                                        <img class="avatar rounded-circle"
+                                             alt=""
+                                             src="{{ review.owner.profile_pic.image_url }}">
                                     </div>
                                     <span class="">{{ review.owner.name|title }}</span>
                                     <div class="comment-block">

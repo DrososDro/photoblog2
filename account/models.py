@@ -49,6 +49,13 @@ class Account(AbstractBaseUser):
     social_instagram = models.CharField(max_length=200, blank=True, null=True)
     social_facebook = models.CharField(max_length=200, blank=True, null=True)
     social_website = models.CharField(max_length=200, blank=True, null=True)
+    profile_pic = models.ForeignKey(
+        "MultipleAccountImages",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="profile_picture",
+    )
 
     is_admin = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
@@ -107,7 +114,7 @@ class Perm(models.Model):
 
 
 class MultipleAccountImages(models.Model):
-    article = models.ForeignKey(
+    account = models.ForeignKey(
         Account,
         on_delete=models.CASCADE,
     )
@@ -115,7 +122,7 @@ class MultipleAccountImages(models.Model):
         null=True,
         blank=True,
         unique=True,
-        upload_to="account",
+        upload_to="account/",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(

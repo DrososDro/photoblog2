@@ -50,7 +50,28 @@
                     </div>
                     <div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation"
                          data-appear-animation="fadeInRightShorter">
-                        <img src="img/team/team-7.jpg" class="img-fluid mb-2" alt="">
+                        <div class="masonry-loader masonry-loader-showing">
+                            <div class="masonry"
+                                 data-plugin-masonry
+                                 data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                {% for image in object.multipleaccountimages_set.all %}
+                                    <div class="masonry-item">
+                                        <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                            <span class="thumb-info-wrapper">
+                                                <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                                <span class="thumb-info-action">
+                                                    <a href="{{ image.image_url }}"
+                                                       class="lightbox-portfolio"
+                                                       target="_blank">
+                                                        <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

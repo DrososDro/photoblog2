@@ -1,72 +1,74 @@
-<header id="header" class="header-transparent header-semi-transparent header-semi-transparent-dark header-effect-shrink"
-  data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
-  <div class="header-body border-top-0 bg-dark box-shadow-none">
-    <div class="header-container container">
-      <!--logo-->
-      <div class="header-row">
-        <div class="header-column">
-          <div class="header-row">
-            <div class="header-logo">
-              <a href="{% url 'home' %}">
-                <img alt="Porto" width="82" height="40" src="img/logo-default-slim-dark-small.png" />
-              </a>
+<header id="header"
+        class="header-transparent header-semi-transparent header-semi-transparent-dark header-effect-shrink"
+        data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
+    <div class="header-body border-top-0 bg-dark box-shadow-none">
+        <div class="header-container container">
+            <!--logo-->
+            <div class="header-row">
+                <div class="header-column">
+                    <div class="header-row">
+                        <div class="header-logo">
+                            <a href="{% url 'home' %}">
+                                <img alt="Porto"
+                                     width="82"
+                                     height="40"
+                                     src="img/logo-default-slim-dark-small.png" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-column justify-content-end">
+                    <div class="header-row">
+                        <div class="header-nav header-nav-links header-nav-dropdowns-dark header-nav-light-text order-2 order-lg-1">
+                            <div class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
+                                <nav class="collapse">
+                                    <ul class="nav nav-pills" id="mainNav">
+                                        <li class="dropdown">
+                                            <a class="dropdown-item" href="{% url 'home' %}">Home</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-item" href="{% url 'articles' %}">Articles</a>
+                                        </li>
+                                        <li class="dropdown dropdown-mega">
+                                            <a class="dropdown-item" href="{% url 'all-artists' %}">Artists</a>
+                                        </li>
+                                        {% if user.is_authenticated %}
+                                            <li class="dropdown">
+                                                <a class="dropdown-item dropdown-toggle" href="#">
+                                                    <i class="icon-user icons header-nav-top-icon"></i>
+                                                    <span class="name header-nav-top-icon">{{ request.user.full_name }}</span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="{% url 'update-user' request.user.id %}" class="dropdown-item"><i class="icon-settings icons header-nav-top-icon"></i><span class="name header-nav-top-icon">Settings</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'logout' %}" class="dropdown-item"><i class="icon-logout icons header-nav-top-icon"></i><span class="name header-nav-top-icon">Logout</span></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="{% url 'login' %}">
+                                                    <i class="icon-login icons header-nav-top-icon"></i>
+                                                    <span class="name header-nav-top-icon">Login</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                            <a href=""
+                               class="btn header-btn-collapse-nav"
+                               data-bs-toggle="collapse"
+                               data-bs-target=".header-nav-main nav">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- navbar-->
             </div>
-          </div>
         </div>
-        <div class="header-column justify-content-end">
-          <div class="header-row">
-            <div class="header-nav header-nav-links header-nav-dropdowns-dark header-nav-light-text order-2 order-lg-1">
-              <div
-                class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                <nav class="collapse">
-                  <ul class="nav nav-pills" id="mainNav">
-                    <li class="dropdown">
-                      <a class="dropdown-item" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="dropdown">
-                      <a class="dropdown-item" href="{% url 'articles' %}">Articles</a>
-                    </li>
-                    <li class="dropdown dropdown-mega">
-                      <a class="dropdown-item" href="{% url 'all-artists' %}">Artists</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="dropdown">
-                      <a class="dropdown-item dropdown-toggle" href="#">
-                        <i class="icon-user icons header-nav-top-icon"></i>
-                        <span class="name header-nav-top-icon">{{ request.user.full_name }}</span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a href="" class="dropdown-item"><i class="icon-settings icons header-nav-top-icon"></i><span
-                              class="name header-nav-top-icon">Settings</span></a>
-                        </li>
-                        <li>
-                          <a href="{% url 'logout' %}" class="dropdown-item"><i
-                              class="icon-logout icons header-nav-top-icon"></i><span
-                              class="name header-nav-top-icon">Logout</span></a>
-                        </li>
-                      </ul>
-                    </li>
-                    {% else %}
-                    <li class="dropdown">
-                      <a class="dropdown-item" href="{% url 'login' %}">
-                        <i class="icon-login icons header-nav-top-icon"></i>
-                        <span class="name header-nav-top-icon">Login</span>
-                      </a>
-                    </li>
-                    {% endif %}
-                  </ul>
-                </nav>
-              </div>
-              <a href="" class="btn header-btn-collapse-nav" data-bs-toggle="collapse"
-                data-bs-target=".header-nav-main nav">
-                <i class="fas fa-bars"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- navbar-->
-      </div>
     </div>
-  </div>
 </header>
