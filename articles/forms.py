@@ -6,9 +6,6 @@ class AddArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ["title", "description", "tags"]
-        widgets = {
-            "tags": forms.CheckboxSelectMultiple(attrs={"class": "form-check-input"})
-        }
 
     def __init__(self, *args, **kwargs):
         super(AddArticleForm, self).__init__(*args, **kwargs)

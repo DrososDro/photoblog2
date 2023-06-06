@@ -13,7 +13,7 @@
                     <div class="overflow-hidden mb-3">
                         <p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation"
                            data-appear-animation="maskUp"
-                           data-appear-animation-delay="500">Marketing</p>
+                           data-appear-animation-delay="500">Artist</p>
                     </div>
                     <p class="lead appear-animation"
                        data-appear-animation="fadeInUpShorter"
@@ -30,46 +30,74 @@
                              data-appear-animation-delay="1000">
                             <div class="col-lg-6">
                                 <a href="#" class="btn btn-modern btn-dark mt-3">Get In Touch</a>
-                                <a href="#" class="btn btn-modern btn-primary mt-3">Hire Me</a>
                             </div>
                             <div class="col-sm-6 text-lg-end my-4 my-lg-0">
                                 <strong class="text-uppercase text-1 me-3 text-dark">follow me</strong>
                                 <ul class="social-icons float-lg-end">
-                                    <li class="social-icons-facebook">
-                                        <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="social-icons-twitter">
-                                        <a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="social-icons-linkedin">
-                                        <a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                    </li>
+                                    {% if object.social_github %}
+                                        <li class="social-icons-rss">
+                                            <a href="{{ object.social_github }}" target="_blank" title="Facebook"><i class="fab fa-github"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_twitter %}
+                                        <li class="social-icons-twitter">
+                                            <a href="{{ object.social_twitter }}" target="_blank" title="Facebook"><i class="fab fa-twitter"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_linkedin %}
+                                        <li class="social-icons-linkedin">
+                                            <a href="{{ object.social_linkedin }}" target="_blank" title="Facebook"><i class="fab fa-linkedin-in"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_youtube %}
+                                        <li class="social-icons-youtube">
+                                            <a href="{{ object.social_youtube }}" target="_blank" title="Facebook"><i class="fab fa-youtube"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_instagram %}
+                                        <li class="social-icons-instagram">
+                                            <a href="{{ object.social_instagram }}" target="_blank" title="Facebook"><i class="fab fa-instagram"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_facebook %}
+                                        <li class="social-icons-facebook">
+                                            <a href="{{ object.social_facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if object.social_website %}
+                                        <li class="social-icons-rss">
+                                            <a href="{{ object.social_website }}" target="_blank" title="Facebook"><i class="fa fa-globe"></i></a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation"
                          data-appear-animation="fadeInRightShorter">
-                        <div class="masonry-loader masonry-loader-showing">
-                            <div class="masonry"
-                                 data-plugin-masonry
-                                 data-plugin-options="{'itemSelector': '.masonry-item'}">
-                                {% for image in object.multipleaccountimages_set.all %}
-                                    <div class="masonry-item">
-                                        <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
-                                            <span class="thumb-info-wrapper">
-                                                <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
-                                                <span class="thumb-info-action">
-                                                    <a href="{{ image.image_url }}"
-                                                       class="lightbox-portfolio"
-                                                       target="_blank">
-                                                        <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
-                                                    </a>
+                        <div class="lightbox mt-3"
+                             data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}">
+                            <div class="masonry-loader masonry-loader-showing">
+                                <div class="masonry"
+                                     data-plugin-masonry
+                                     data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                    {% for image in object.multipleaccountimages_set.all %}
+                                        <div class="masonry-item">
+                                            <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                                <span class="thumb-info-wrapper">
+                                                    <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                                    <span class="thumb-info-action">
+                                                        <a href="{{ image.image_url }}"
+                                                           class="lightbox-portfolio"
+                                                           target="_blank">
+                                                            <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
+                                                        </a>
+                                                    </span>
                                                 </span>
                                             </span>
-                                        </span>
-                                    </div>
-                                {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>

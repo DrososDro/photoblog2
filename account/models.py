@@ -1,3 +1,4 @@
+from os import walk
 from django.db import models
 import uuid
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -88,6 +89,9 @@ class Account(AbstractBaseUser):
             surname = ""
 
         return f"{self.name}  {surname}"
+
+    def permissions_list(self):
+        return self.permissions.values_list("name", flat=True)
 
     def save(self, *args, **kwargs):
         if self.name:

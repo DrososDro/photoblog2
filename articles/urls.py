@@ -25,4 +25,14 @@ urlpatterns = [
         views.UpdateArticle.as_view(),
         name="update-article",
     ),
+    path(
+        "delete-article-image/<str:pk>",
+        views.DeleteImage.as_view(),
+        name="delete-article-image",
+    ),
+    path(
+        "delete-article/<str:pk>",
+        views.DeleteArticle.as_view(),
+        name="delete-article",
+    ),
 ]

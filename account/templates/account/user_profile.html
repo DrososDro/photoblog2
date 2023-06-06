@@ -57,7 +57,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="lightbox mt-3">
+                <div class="mt-3">
                     <div class="masonry-loader masonry-loader-showing">
                         <div class="masonry"
                              data-plugin-masonry
@@ -68,9 +68,8 @@
                                         <span class="thumb-info-wrapper">
                                             <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
                                             <span class="thumb-info-action">
-                                                <a href="{{ image.image_url }}" class="lightbox-portfolio">
-                                                    <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-search-plus"></i></span>
-                                                    <p>{{ image }}</p>
+                                                <a href="{% url 'delete-image' image.id %}" class="lightbox-portfolio">
+                                                    <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-trash"></i></span>
                                                 </a>
                                             </span>
                                         </span>
@@ -80,6 +79,71 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <hr class="solid my-5">
+                    </div>
+                </div>
+                {% if "artist" in request.user.permissions_list %}
+                    <div class="col-lg-6 text-center">
+                        <a href="{% url 'create-article' %}"
+                           class="btn btn-modern btn-dark mt-3">Create Article</a>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr class="solid my-5">
+                        </div>
+                    </div>
+                    {% for article in request.user.article_set.all %}
+                        <div class="row">
+                            <div class="col-md-7 order-2">
+                                <div class="overflow-hidden">
+                                    <h2 class="text-color-dark font-weight-bold text-8 mb-0 pt-0 mt-0 appear-animation"
+                                        data-appear-animation="maskUp"
+                                        data-appear-animation-delay="300">{{ article.title }}</h2>
+                                </div>
+                                <p class="lead appear-animation"
+                                   data-appear-animation="fadeInUpShorter"
+                                   data-appear-animation-delay="700">{{ article.description|truncatewords:20 }}</p>
+                                <div class="row align-items-center appear-animation"
+                                     data-appear-animation="fadeInUpShorter"
+                                     data-appear-animation-delay="1000">
+                                    <div class="col-lg-6">
+                                        <a href="{% url 'update-article' article.id %}"
+                                           class="btn btn-modern btn-dark mt-3">Edit Article</a>
+                                        <a href="{% url 'delete-article' article.id %}"
+                                           class="btn btn-modern btn-danger mt-3">Delete Article</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation"
+                                 data-appear-animation="fadeInRightShorter">
+                                <div class="masonry-loader masonry-loader-showing">
+                                    <div class="masonry"
+                                         data-plugin-masonry
+                                         data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                        {% for image in article.images %}
+                                            <div class="masonry-item">
+                                                <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                                    <span class="thumb-info-wrapper">
+                                                        <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                                        <span class="thumb-info-action">
+                                                            <a href="{% url 'delete-article-image' image.id %}"
+                                                               class="lightbox-portfolio">
+                                                                <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-trash"></i></span>
+                                                            </a>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <!--endhere-->
             </div>
         </div>
     </section>

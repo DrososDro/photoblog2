@@ -10,7 +10,7 @@
                             <div class="overflow-hidden">
                                 <h2 class="text-color-dark font-weight-bold text-8 mb-0 pt-0 mt-0 appear-animation"
                                     data-appear-animation="maskUp"
-                                    data-appear-animation-delay="300">{{ artist.full_name }}</h2>
+                                    data-appear-animation-delay="300">{{ artist.full_name|title }}</h2>
                             </div>
                             <div class="overflow-hidden mb-3">
                                 <p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation"
@@ -31,20 +31,45 @@
                                  data-appear-animation-delay="1000">
                                 <div class="col-lg-6">
                                     <a href="{{ artist.get_URL }}" class="btn btn-modern btn-dark mt-3">Show More...</a>
-                                    <a href="#" class="btn btn-modern btn-primary mt-3">Hire Me</a>
                                 </div>
                                 <div class="col-sm-6 text-lg-end my-4 my-lg-0">
                                     <strong class="text-uppercase text-1 me-3 text-dark">follow me</strong>
                                     <ul class="social-icons float-lg-end">
-                                        <li class="social-icons-facebook">
-                                            <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li class="social-icons-twitter">
-                                            <a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li class="social-icons-linkedin">
-                                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
+                                        {% if artist.social_github %}
+                                            <li class="social-icons-rss">
+                                                <a href="{{ artist.social_github }}" target="_blank" title="Facebook"><i class="fab fa-github"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_twitter %}
+                                            <li class="social-icons-twitter">
+                                                <a href="{{ artist.social_twitter }}" target="_blank" title="Facebook"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_linkedin %}
+                                            <li class="social-icons-linkedin">
+                                                <a href="{{ artist.social_linkedin }}" target="_blank" title="Facebook"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_youtube %}
+                                            <li class="social-icons-youtube">
+                                                <a href="{{ artist.social_youtube }}" target="_blank" title="Facebook"><i class="fab fa-youtube"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_instagram %}
+                                            <li class="social-icons-instagram">
+                                                <a href="{{ artist.social_instagram }}" target="_blank" title="Facebook"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_facebook %}
+                                            <li class="social-icons-facebook">
+                                                <a href="{{ artist.social_facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_website %}
+                                            <li class="social-icons-rss">
+                                                <a href="{{ artist.social_website }}" target="_blank" title="Facebook"><i class="fa fa-globe"></i></a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -69,12 +94,12 @@
                             <div class="overflow-hidden">
                                 <h2 class="text-color-dark font-weight-bold text-8 mb-0 pt-0 mt-0 appear-animation"
                                     data-appear-animation="maskUp"
-                                    data-appear-animation-delay="300">{{ artist.full_name }}</h2>
+                                    data-appear-animation-delay="300">{{ artist.full_name|title }}</h2>
                             </div>
                             <div class="overflow-hidden mb-3">
                                 <p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation"
                                    data-appear-animation="maskUp"
-                                   data-appear-animation-delay="500">Marketing</p>
+                                   data-appear-animation-delay="500">Artist</p>
                             </div>
                             <p class="lead appear-animation"
                                data-appear-animation="fadeInUpShorter"
@@ -90,20 +115,45 @@
                                  data-appear-animation-delay="1000">
                                 <div class="col-lg-6">
                                     <a href="{{ artist.get_URL }}" class="btn btn-modern btn-dark mt-3">Show More...</a>
-                                    <a href="#" class="btn btn-modern btn-primary mt-3">Hire Me</a>
                                 </div>
                                 <div class="col-sm-6 text-lg-end my-4 my-lg-0">
                                     <strong class="text-uppercase text-1 me-3 text-dark">follow me</strong>
                                     <ul class="social-icons float-lg-end">
-                                        <li class="social-icons-facebook">
-                                            <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li class="social-icons-twitter">
-                                            <a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li class="social-icons-linkedin">
-                                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
+                                        {% if artist.social_github %}
+                                            <li class="social-icons-rss">
+                                                <a href="{{ artist.social_github }}" target="_blank" title="Facebook"><i class="fab fa-github"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_twitter %}
+                                            <li class="social-icons-twitter">
+                                                <a href="{{ artist.social_twitter }}" target="_blank" title="Facebook"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_linkedin %}
+                                            <li class="social-icons-linkedin">
+                                                <a href="{{ artist.social_linkedin }}" target="_blank" title="Facebook"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_youtube %}
+                                            <li class="social-icons-youtube">
+                                                <a href="{{ artist.social_youtube }}" target="_blank" title="Facebook"><i class="fab fa-youtube"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_instagram %}
+                                            <li class="social-icons-instagram">
+                                                <a href="{{ artist.social_instagram }}" target="_blank" title="Facebook"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_facebook %}
+                                            <li class="social-icons-facebook">
+                                                <a href="{{ artist.social_facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if artist.social_website %}
+                                            <li class="social-icons-rss">
+                                                <a href="{{ artist.social_website }}" target="_blank" title="Facebook"><i class="fa fa-globe"></i></a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>

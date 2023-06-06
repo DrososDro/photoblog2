@@ -57,6 +57,7 @@ class MyCustomAdmin(UserAdmin):
                     "phone",
                     "short_intro",
                     "bio",
+                    "profile_pic",
                 )
             },
         ),

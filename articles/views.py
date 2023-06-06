@@ -1,21 +1,25 @@
 from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 from django.views.generic.edit import CreateView
 from .models import Article, MultipleImages
 from .forms import AddArticleForm
 from tags.models import Tag
 from .utils import add_tags_too_instance, multiple_image_add
+from django.utils.decorators import method_decorator
+from account.decorators import authenticated_user, permisions_required
 
 # Create your views here.
 
 
+# all can see
 class HomeView(ListView):
     model = MultipleImages
     template_name = "articles/home.html"
 
 
+# all can see
 class ArticlesView(ListView):
     model = Article
     template_name = "articles/articles.html"
@@ -43,6 +47,7 @@ class ArticlesView(ListView):
             return super().get_queryset()
 
 
+# all can see
 class SingleArticleView(DetailView):
     model = Article
     template_name = "articles/single_article.html"
@@ -68,6 +73,7 @@ class SingleArticleView(DetailView):
         return context
 
 
+# all can see
 class ArticlesByTag(ListView):
     model = Tag
     template_name = "articles/articles.html"
@@ -79,6 +85,13 @@ class ArticlesByTag(ListView):
         return Tag.objects.get(id=self.kwargs["pk"]).article_set.all()
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin", "artist"]),
+    ],
+    name="dispatch",
+)
 class CreateArticle(CreateView):
     template_name = "articles/add_article.html"
     form_class = AddArticleForm
@@ -106,6 +119,13 @@ class CreateArticle(CreateView):
         return super().form_valid(form, *args, **kwargs)
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin", "artist"]),
+    ],
+    name="dispatch",
+)
 class UpdateArticle(UpdateView):
     model = Article
     template_name = "articles/add_article.html"
@@ -132,3 +152,31 @@ class UpdateArticle(UpdateView):
         multiple_image_add(self.request, self.object)
 
         return redirect(self.success_url)
+
+
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin", "artist"]),
+    ],
+    name="dispatch",
+)
+class DeleteImage(DeleteView):
+    model = MultipleImages
+    template_name = "delete.html"
+    extra_context = {"text": "This Image"}
+
+    def get_success_url(self):
+        return reverse("update-user", kwargs={"pk": self.object.pk})
+
+
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin", "artist"]),
+    ],
+    name="dispatch",
+)
+class DeleteArticle(DeleteImage):
+    model = Article
+    extra_context = {"text": "This Article"}

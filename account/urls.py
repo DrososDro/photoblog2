@@ -17,4 +17,9 @@ urlpatterns = [
         views.UpdateUser.as_view(),
         name="update-user",
     ),
+    path(
+        "delete-image/<str:pk>",
+        views.DeleteAccountImage.as_view(),
+        name="delete-image",
+    ),
 ]
