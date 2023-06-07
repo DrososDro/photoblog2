@@ -1,32 +1,27 @@
 <div class="col pb-3">
-    {% if form.errors %}
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"></button>
-            <strong><i class="fas fa-exclamation-triangle"></i>Oh snap!</strong> Change
-            a few things up and try submitting again.
-            <ul>
-                {% for key,error in form.errors.items %}<li>{{ error }}</li>{% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+  {% if form.errors %}
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <strong><i class="fas fa-exclamation-triangle"></i>Oh snap!</strong> Change
+    a few things up and try submitting again.
+    <ul>
+      {% for key,error in form.errors.items %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 </div>
 <!--alerts-->
 {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="alert alert-dismissible"
-                role="alert"
-                {% if message.tags %}class="alert-{{ message.tags }}"{% endif %}>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:{% endif %}
-                {{ message }}
-            </li>
-        {% endfor %}
-    </ul>
+<div class="col pb-3">
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="alert alert-dismissible alert-{{message.tags}}" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      {{ message }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}

@@ -166,6 +166,17 @@ class DeleteImage(DeleteView):
     template_name = "delete.html"
     extra_context = {"text": "This Image"}
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = reverse(
+            "delete-article-image",
+            kwargs={
+                "pk": self.kwargs["pk"],
+            },
+        )
+
+        return context
+
     def get_success_url(self):
         return reverse("update-user", kwargs={"pk": self.object.pk})
 
@@ -180,3 +191,13 @@ class DeleteImage(DeleteView):
 class DeleteArticle(DeleteImage):
     model = Article
     extra_context = {"text": "This Article"}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = reverse(
+            "delete-article",
+            kwargs={
+                "pk": self.kwargs["pk"],
+            },
+        )
+        return

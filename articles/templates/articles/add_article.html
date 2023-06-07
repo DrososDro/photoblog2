@@ -9,9 +9,9 @@
                         <div class="col">
                             <form class="form-style-2"
                                   action="{{ action }}"
+                                  onsubmit="showLoading('loading')"
                                   method="POST"
                                   enctype="multipart/form-data">
-
                                 {% csrf_token %}
                                 {% for field in form %}
                                     {% if field.label == "Tags" %}

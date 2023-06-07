@@ -6,7 +6,11 @@
                 <div class="col-md-6 col-lg-5 mb-5 mb-lg-0">
                     <h2 class="font-weight-bold text-5 mb-0">Are you sure you want to delete</h2>
                     <h4 class="font-weight-bold text-2 mb-0">{{ text }}</h4>
-                    <form action="" id="frmSignIn" method="post" class="needs-validation">
+                    <form action="{{ action }}"
+                          onsubmit="showLoading('loading')"
+                          id="frmSignIn"
+                          method="post"
+                          class="needs-validation">
                         {% csrf_token %}
                         <div class="row">
                             <div class="form-group col"></div>

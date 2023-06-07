@@ -19,7 +19,7 @@
                                    href="{% url 'update-user' request.user.id %}">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-3" href="#">Change Password</a>
+                                <a class="nav-link text-3" href="{% url 'admin_password_reset' %}">Change Password</a>
                             </li>
                         </ul>
                     </aside>
@@ -27,6 +27,7 @@
                 <div class="col-lg-9">
                     <form role=""
                           class="needs-validation"
+                          onsubmit="showLoading('loading')"
                           enctype="multipart/form-data"
                           action="{% url 'update-user' request.user.id %}"
                           method="post">
