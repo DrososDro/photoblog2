@@ -3,7 +3,6 @@ import uuid
 from django.db.models import Avg
 from django.urls import reverse
 from tags.models import Tag
-from reviews.models import Review
 from account.models import Account
 import os
 
@@ -26,7 +25,6 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    reviews = models.ManyToManyField(Review, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(
@@ -40,20 +38,26 @@ class Article(models.Model):
         return self.title
 
     def total_votes(self):
-        return self.reviews.count()
+        return self.review_set.all().count()
 
     def images(self):
         return self.multipleimages_set.all()
 
     def average_rating(self):
         if self.total_votes() > 0:
-            average_rating = self.reviews.aggregate(Avg("star_rating"))
+            average_rating = self.review_set.all().aggregate(Avg("star_rating"))
+            print(average_rating)
             return average_rating["star_rating__avg"]
         else:
             return 0
 
     def get_URL(self):
         return reverse("article", kwargs={"pk": self.id})
+
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list("owner__id", flat=True)
+        return queryset
 
 
 class MultipleImages(models.Model):

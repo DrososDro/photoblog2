@@ -144,9 +144,76 @@
         </section>
         <section>
             <div class="container">
+                {% if request.user.id in article.reviewers %}
+                    <p>You have already submitted your review for this project</p>
+                {% elif request.user == article.owner %}
+                    <p>You cannot review your own work</p>
+                {% elif request.user.is_authenticated %}
+                    <h4>Add a review</h4>
+                    <div class="row">
+                        <div class="col">
+                            <form action="{% url 'review' article.id %}"
+                                  id="submitReview"
+                                  method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="form-group col pb-2">
+                                        <label class="form-label required font-weight-bold text-dark">Rating</label>
+                                        <input type="text"
+                                               class="rating-loading"
+                                               name="star_rating"
+                                               value="0"
+                                               title=""
+                                               data-plugin-star-rating
+                                               data-plugin-options="{'color': 'primary', 'size':'sm'}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label class="form-label required font-weight-bold text-dark">Title</label>
+                                        <input type="text"
+                                               value=""
+                                               data-msg-required="Please enter your name."
+                                               maxlength="100"
+                                               class="form-control"
+                                               name="title"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label font-weight-bold text-dark">Review</label>
+                                        <textarea maxlength="5000"
+                                                  data-msg-required="Please enter your review."
+                                                  rows="8"
+                                                  class="form-control"
+                                                  name="description"
+                                                  id="review"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col mb-0">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-modern"
+                                                data-loading-text="Loading...">Post Review</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3 class="text-color-dark">
+                        <a href="{% url 'login' %}?next={{ request.path }}">Please login to leave a review</a>
+                    </h3>
+                {% endif %}
+            </div>
+        </section>
+        <!--end add revie form-->
+        <section>
+            <div class="container">
                 <div class="tab-pane px-0 py-3" id="productReviews">
                     <ul class="comments">
-                        {% for review in article.reviews.all %}
+                        {% for review in article.review_set.all %}
                             <li>
                                 <div class="comment">
                                     <div class="img-thumbnail border-0 p-0 d-none d-md-block">

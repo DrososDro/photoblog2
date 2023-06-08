@@ -2,11 +2,13 @@ from django.db import models
 import uuid
 from django.core.validators import MaxValueValidator
 from account.models import Account
+from articles.models import Article
 
 # Create your models here.
 
 
 class Review(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
     owner = models.ForeignKey(Account, models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
@@ -24,6 +26,7 @@ class Review(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        unique_together = [["article", "owner"]]
 
     def save(self, *args, **kwargs):
         if float(self.star_rating) < 0 or float(self.star_rating) > 5:
