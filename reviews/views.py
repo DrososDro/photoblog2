@@ -2,7 +2,7 @@ from django.shortcuts import reverse
 from django.views.generic import CreateView
 from .forms import ReviewForm
 from account.decorators import authenticated_user
-from django.views.decorators import method_decorator
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
