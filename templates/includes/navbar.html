@@ -8,7 +8,7 @@
           <div class="header-row">
             <div class="header-logo">
               <a href="{% url 'home' %}">
-                <img alt="Porto" width="82" height="40" src="{{blog_info.navigation_bar_image.image_url}}" />
+                <img alt="Porto" width="82" height="40" src="{{ blog_info.navigation_bar_image.image_url }}" />
               </a>
             </div>
           </div>
@@ -29,7 +29,7 @@
                     <li class="dropdown dropdown-mega">
                       <a class="dropdown-item" href="{% url 'all-artists' %}">Artists</a>
                     </li>
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                     <li class="dropdown">
                       <a class="dropdown-item dropdown-toggle" href="#">
                         <i class="icon-user icons header-nav-top-icon"></i>
@@ -41,6 +41,13 @@
                               class="icon-settings icons header-nav-top-icon"></i><span
                               class="name header-nav-top-icon">Settings</span></a>
                         </li>
+                        {% if "admin" in request.user.permissions_list %}
+                        <li>
+                          <a href="{% url 'blog' %}" class="dropdown-item"><i
+                              class="icon-settings icons header-nav-top-icon"></i><span
+                              class="name header-nav-top-icon">Admin</span></a>
+                        </li>
+                        {% endif %}
                         <li>
                           <a href="{% url 'logout' %}" class="dropdown-item"><i
                               class="icon-logout icons header-nav-top-icon"></i><span

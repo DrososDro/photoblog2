@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import BlogInfo
-from django.views.generic import UpdateView
+from .models import BlogInfo, MultipleBlogImages
+from django.views.generic import UpdateView, DeleteView
 from .forms import BlogInfoForm
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -15,7 +15,7 @@ class UpdateBlog(UpdateView):
     template_name = "blogadmin/admin_form.html"
 
     def get_success_url(self):
-        return reverse("update-user", kwargs={"pk": self.object.pk})
+        return reverse("blog")
 
     def get_object(self, queryset=None):
         queryset = BlogInfo.objects.first()
@@ -25,3 +25,19 @@ class UpdateBlog(UpdateView):
         super().post(request, *args, **kwargs)
         multiple_blog_image_add(self.request, self.object)
         return redirect(self.get_success_url())
+
+
+class DeleteBlogImage(DeleteView):
+    model = MultipleBlogImages
+    template_name = "delete.html"
+    extra_context = {"text": "This Picture"}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = reverse(
+            "delete-blog-image", kwargs={"pk": self.kwargs["pk"]}
+        )
+        return context
+
+    def get_success_url(self):
+        return reverse("blog")

@@ -4,32 +4,12 @@
     <section>
         <div class="container pt-3 pb-2">
             <div class="row pt-2">
-                <div class="col-lg-3 mt-4 mt-lg-0">
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="profile-image-outer-container">
-                            <div class="profile-image-inner-container bg-color-primary">
-                                <img src="{{ request.user.profile_pic.image_url }}" alt="Not Found" />
-                            </div>
-                        </div>
-                    </div>
-                    <aside class="sidebar mt-2" id="sidebar">
-                        <ul class="nav nav-list flex-column mb-5">
-                            <li class="nav-item">
-                                <a class="nav-link text-3 text-dark active"
-                                   href="{% url 'update-user' request.user.id %}">My Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-3" href="{% url 'admin_password_reset' %}">Change Password</a>
-                            </li>
-                        </ul>
-                    </aside>
-                </div>
                 <div class="col-lg-9">
                     <form role=""
                           class="needs-validation"
                           onsubmit="showLoading('loading')"
                           enctype="multipart/form-data"
-                          action="{% url 'update-user' request.user.id %}"
+                          action="{% url 'blog' %}"
                           method="post">
                         {% csrf_token %}
                         {% for field in form %}
@@ -63,13 +43,14 @@
                         <div class="masonry"
                              data-plugin-masonry
                              data-plugin-options="{'itemSelector': '.masonry-item'}">
-                            {% for image in request.user.multipleaccountimages_set.all %}
+                            {% for image in blog_info.multipleblogimages_set.all %}
                                 <div class="masonry-item">
                                     <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
                                         <span class="thumb-info-wrapper">
                                             <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
                                             <span class="thumb-info-action">
-                                                <a href="{% url 'delete-image' image.id %}" class="lightbox-portfolio">
+                                                <a href="{% url 'delete-blog-image' image.id %}"
+                                                   class="lightbox-portfolio">
                                                     <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-trash"></i></span>
                                                 </a>
                                             </span>
