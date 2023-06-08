@@ -1,10 +1,14 @@
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import reverse
 from django.views.generic import CreateView
-from django.urls import reverse_lazy
 from .forms import ReviewForm
+from account.decorators import authenticated_user
+from django.views.decorators import method_decorator
 
 
 # Create your views here.
+
+
+@method_decorator(authenticated_user, name="dispatch")
 class CreateReview(CreateView):
     form_class = ReviewForm
 
