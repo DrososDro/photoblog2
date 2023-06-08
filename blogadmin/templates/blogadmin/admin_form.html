@@ -1,0 +1,152 @@
+{% extends "main.html" %}
+{% block blockname %}
+    <!--user profile-->
+    <section>
+        <div class="container pt-3 pb-2">
+            <div class="row pt-2">
+                <div class="col-lg-3 mt-4 mt-lg-0">
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="profile-image-outer-container">
+                            <div class="profile-image-inner-container bg-color-primary">
+                                <img src="{{ request.user.profile_pic.image_url }}" alt="Not Found" />
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="sidebar mt-2" id="sidebar">
+                        <ul class="nav nav-list flex-column mb-5">
+                            <li class="nav-item">
+                                <a class="nav-link text-3 text-dark active"
+                                   href="{% url 'update-user' request.user.id %}">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-3" href="{% url 'admin_password_reset' %}">Change Password</a>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+                    <form role=""
+                          class="needs-validation"
+                          onsubmit="showLoading('loading')"
+                          enctype="multipart/form-data"
+                          action="{% url 'update-user' request.user.id %}"
+                          method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2">{{ field.label }}</label>
+                                <div class="col-lg-9">{{ field }}</div>
+                            </div>
+                        {% endfor %}
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2">Upload Images</label>
+                            <div class="col-lg-9">
+                                <input class="form-control text-3 h-auto py-2"
+                                       type="file"
+                                       accept="image/*"
+                                       name="account_images"
+                                       multiple />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group col-lg-9"></div>
+                            <div class="form-group col-lg-3">
+                                <button type="submit"
+                                        class="btn btn-primary btn-modern float-end"
+                                        data-loading-text="Loading...">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-3">
+                    <div class="masonry-loader masonry-loader-showing">
+                        <div class="masonry"
+                             data-plugin-masonry
+                             data-plugin-options="{'itemSelector': '.masonry-item'}">
+                            {% for image in request.user.multipleaccountimages_set.all %}
+                                <div class="masonry-item">
+                                    <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                        <span class="thumb-info-wrapper">
+                                            <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                            <span class="thumb-info-action">
+                                                <a href="{% url 'delete-image' image.id %}" class="lightbox-portfolio">
+                                                    <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-trash"></i></span>
+                                                </a>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <hr class="solid my-5">
+                    </div>
+                </div>
+                {% if "artist" in request.user.permissions_list %}
+                    <div class="col-lg-6 text-center">
+                        <a href="{% url 'create-article' %}"
+                           class="btn btn-modern btn-dark mt-3">Create Article</a>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr class="solid my-5">
+                        </div>
+                    </div>
+                    {% for article in request.user.article_set.all %}
+                        <div class="row">
+                            <div class="col-md-7 order-2">
+                                <div class="overflow-hidden">
+                                    <h2 class="text-color-dark font-weight-bold text-8 mb-0 pt-0 mt-0 appear-animation"
+                                        data-appear-animation="maskUp"
+                                        data-appear-animation-delay="300">{{ article.title }}</h2>
+                                </div>
+                                <p class="lead appear-animation"
+                                   data-appear-animation="fadeInUpShorter"
+                                   data-appear-animation-delay="700">{{ article.description|truncatewords:20 }}</p>
+                                <div class="row align-items-center appear-animation"
+                                     data-appear-animation="fadeInUpShorter"
+                                     data-appear-animation-delay="1000">
+                                    <div class="col-lg-6">
+                                        <a href="{% url 'update-article' article.id %}"
+                                           class="btn btn-modern btn-dark mt-3">Edit Article</a>
+                                        <a href="{% url 'delete-article' article.id %}"
+                                           class="btn btn-modern btn-danger mt-3">Delete Article</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation"
+                                 data-appear-animation="fadeInRightShorter">
+                                <div class="masonry-loader masonry-loader-showing">
+                                    <div class="masonry"
+                                         data-plugin-masonry
+                                         data-plugin-options="{'itemSelector': '.masonry-item'}">
+                                        {% for image in article.images %}
+                                            <div class="masonry-item">
+                                                <span class="thumb-info thumb-info-centered-icons thumb-info-no-borders">
+                                                    <span class="thumb-info-wrapper">
+                                                        <img src="{{ image.image_url }}" class="img-fluid border-radius-0" alt="">
+                                                        <span class="thumb-info-action">
+                                                            <a href="{% url 'delete-article-image' image.id %}"
+                                                               class="lightbox-portfolio">
+                                                                <span class="thumb-info-action-icon thumb-info-action-icon-light"><i class="fas fa-trash"></i></span>
+                                                            </a>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <!--endhere-->
+            </div>
+        </div>
+    </section>
+    <!--user profile-->
+{% endblock blockname %}

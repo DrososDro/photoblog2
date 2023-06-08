@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "tags.apps.TagsConfig",
     "reviews.apps.ReviewsConfig",
     "account.apps.AccountConfig",
+    "blogadmin.apps.BlogadminConfig",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "tags.context_processors.tags_context",
                 "articles.context_processors.recent_articles_footer",
+                "blogadmin.context_processors.blog_info",
             ],
         },
     },

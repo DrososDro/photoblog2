@@ -28,18 +28,7 @@
     <div class="row py-5 my-4">
       <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
         <h5 class="text-3 mb-3">ABOUT THE BLOG</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu
-          pulvinar magna semper scelerisque.
-        </p>
-        <p class="mb-2">
-          Praesent venenatis turpis vitae purus semper, eget sagittis velit
-          venenatis ptent taciti sociosqu ad litora...
-        </p>
-        <p class="mb-0">
-          <a href="#" class="btn-flat btn-xs text-color-light p-relative top-5"><strong class="text-2">VIEW
-              MORE</strong><i class="fas fa-angle-right p-relative top-1 ps-2"></i></a>
-        </p>
+        <p class="text-3">{{blog_info.about|linebreaksbr}}</p>
       </div>
       <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
         <h5 class="text-3 mb-3">RECENT Articles</h5>
@@ -81,8 +70,9 @@
     <div class="container py-2">
       <div class="row py-4">
         <div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
-          <a href="https://www.flaticon.com/free-icon/camera_2965705?term=camera&page=1&position=21&origin=tag&related_id=2965705"
-            title="camera icons">Camera icons created by Freepik - Flaticon</a>
+          <a href="{{ blog_info.footer_image.image_url}}" title="camera icons">
+            <img width="82" height="40" src="{{ blog_info.footer_image.image_url}}" alt="" />
+          </a>
         </div>
         <div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
           <p>© Copyright 2023. All Rights Reserved.</p>
