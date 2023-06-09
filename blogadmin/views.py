@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from .models import BlogInfo, MultipleBlogImages
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView, ListView
 from .forms import BlogInfoForm
 from django.urls import reverse
 from django.shortcuts import redirect
 from .utils import multiple_blog_image_add
+from account.models import Account
 
 # Create your views here.
 
@@ -41,3 +42,34 @@ class DeleteBlogImage(DeleteView):
 
     def get_success_url(self):
         return reverse("blog")
+
+
+"""
+
+class UsersView(ListView):
+    model = Account
+    paginate_by = 4
+    template_name = "blogadmin/users.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["search"] = True
+        context["search_action"] = reverse("user-admin")
+        context["search_name"] = "q_user"
+
+        return context
+
+    def get_queryset(self):
+        if "q_user" in self.request.GET:
+            q_user = self.request.GET.get("q_user")
+            queryset = (
+                Account.objects.distinct()
+                .filter(email__icontains=q_user)
+                .exclude(is_superadmin=True)
+            )
+
+            return queryset
+        else:
+            return super().get_queryset().exclude(is_superadmin=True)
+
+"""

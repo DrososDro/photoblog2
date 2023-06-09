@@ -21,6 +21,13 @@ class BlogInfo(models.Model):
         blank=True,
         related_name="footer",
     )
+    search_image = models.ForeignKey(
+        "MultipleBlogImages",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="search_image",
+    )
 
 
 class MultipleBlogImages(models.Model):

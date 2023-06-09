@@ -39,30 +39,39 @@
                         <li>
                           <a href="{% url 'update-user' request.user.id %}" class="dropdown-item"><i
                               class="icon-settings icons header-nav-top-icon"></i><span
-                              class="name header-nav-top-icon">Settings</span></a>
+                              class="name header-nav-top-icon"> User Settings</span></a>
                         </li>
-                        {% if "admin" in request.user.permissions_list %}
+                    </li>
+                    {% if "admin" in request.user.permissions_list %}
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item" href="#">
+                        <i class="icon-settings icons header-nav-top-icon"></i>
+                        <span class="name header-nav-top-icon">Admin</span>
+
+                      </a>
+                      <ul class="dropdown-menu">
                         <li>
-                          <a href="{% url 'blog' %}" class="dropdown-item"><i
-                              class="icon-settings icons header-nav-top-icon"></i><span
-                              class="name header-nav-top-icon">Admin</span></a>
-                        </li>
-                        {% endif %}
-                        <li>
-                          <a href="{% url 'logout' %}" class="dropdown-item"><i
-                              class="icon-logout icons header-nav-top-icon"></i><span
-                              class="name header-nav-top-icon">Logout</span></a>
+                          <a class="dropdown-item" href="{% url 'blog' %}">Blog Settings</a>
                         </li>
                       </ul>
                     </li>
-                    {% else %}
-                    <li class="dropdown">
-                      <a class="dropdown-item" href="{% url 'login' %}">
-                        <i class="icon-login icons header-nav-top-icon"></i>
-                        <span class="name header-nav-top-icon">Login</span>
-                      </a>
-                    </li>
                     {% endif %}
+
+                    <li>
+                      <a href="{% url 'logout' %}" class="dropdown-item"><i
+                          class="icon-logout icons header-nav-top-icon"></i><span
+                          class="name header-nav-top-icon">Logout</span></a>
+                    </li>
+                  </ul>
+                  </li>
+                  {% else %}
+                  <li class="dropdown">
+                    <a class="dropdown-item" href="{% url 'login' %}">
+                      <i class="icon-login icons header-nav-top-icon"></i>
+                      <span class="name header-nav-top-icon">Login</span>
+                    </a>
+                  </li>
+                  {% endif %}
                   </ul>
                 </nav>
               </div>
