@@ -19,7 +19,7 @@ class Article(models.Model):
     # if the owner want to keep them or delete them
     owner = models.ForeignKey(
         Account,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
     )
     title = models.CharField(max_length=200)

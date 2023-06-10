@@ -9,6 +9,8 @@ whitenoise = "*"
 pytest-django = "*"
 pytest = "*"
 django-storages = "*"
+boto3 = "*"
+minio = "*"
 
 [dev-packages]
 

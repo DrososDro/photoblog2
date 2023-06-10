@@ -52,7 +52,7 @@ class Account(AbstractBaseUser):
     social_website = models.CharField(max_length=200, blank=True, null=True)
     profile_pic = models.ForeignKey(
         "MultipleAccountImages",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="profile_picture",
