@@ -23,17 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-abq3ah3k69v8m#rx&ryhzv^jjhtdn)r1evovv8lak=cq5!fu2o"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-"""
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-]
-
-"""
-ALLOWED_HOSTS = ["photo.drosinakis.com"]
-
-CSRF_TRUSTED_ORIGINS = ["https://photo.drosinakis.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -50,12 +42,11 @@ INSTALLED_APPS = [
     "reviews.apps.ReviewsConfig",
     "account.apps.AccountConfig",
     "blogadmin.apps.BlogadminConfig",
-    "storages",
+    "storages"
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -124,7 +115,7 @@ AUTH_USER_MODEL = "account.Account"
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Europe/Athens"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -139,7 +130,7 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = "staticfiles/"
 
 # email backend
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -148,36 +139,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("testemailuser")
 EMAIL_HOST_PASSWORD = os.environ.get("testemailpass")
-
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_AGE = 1 * 3600  # 1 = hours 3600 = the sec 1 hour have
-# Content Security Policy
-CSP_IMG_SRC = "'self'"
-CSP_STYLE_SRC = "'self'"
-CSP_SCRIPT_SRC = "'self'"
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-AWS_S3_ENDPOINT_URL = "https://minio.drosinakis.com"
-AWS_QUERYSTRING_AUTH = False
-
-# s3 overwrite doesent suport from the minio
-# AWS_S3_FILE_OVERWRITE = False
-
-AWS_ACCESS_KEY_ID = os.environ.get("miniouser")
-AWS_SECRET_ACCESS_KEY = os.environ.get("miniopass")
-
-AWS_STORAGE_BUCKET_NAME = "photoblockmain"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_S3_REGION_NAME = "Gr"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

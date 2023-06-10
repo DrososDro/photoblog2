@@ -8,6 +8,7 @@ django = "*"
 whitenoise = "*"
 pytest-django = "*"
 pytest = "*"
+django-storages = "*"
 
 [dev-packages]
 
