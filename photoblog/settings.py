@@ -25,13 +25,13 @@ SECRET_KEY = "django-insecure-abq3ah3k69v8m#rx&ryhzv^jjhtdn)r1evovv8lak=cq5!fu2o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+"""
 ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
 """
 ALLOWED_HOSTS = ["photo.drosinakis.com"]
-"""
 
 CSRF_TRUSTED_ORIGINS = ["https://photo.drosinakis.com"]
 
