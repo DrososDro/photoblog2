@@ -13,6 +13,7 @@ from django.contrib.auth.views import (
     get_current_site,
     urlsafe_base64_decode,
 )
+from account.models import Perm
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views.generic import (
@@ -171,6 +172,9 @@ def activate(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
+        permission = Perm.objects.get(name="default")
+        user.permissions.add(permission)
+
         user.save()
         messages.success(
             request,

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UpdateBlog, DeleteBlogImage
+from .views import UpdateBlog, DeleteBlogImage, UsersView, UpdateUserAdminView
 
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
         DeleteBlogImage.as_view(),
         name="delete-blog-image",
     ),
-    # path("user-admin/", UsersView.as_view(), name="user-admin"),
+    path("user-admin/", UsersView.as_view(), name="user-admin"),
+    path("user-change/<str:pk>", UpdateUserAdminView.as_view(), name="user-change"),
 ]

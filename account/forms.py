@@ -26,3 +26,18 @@ class UserModelForm(forms.ModelForm):
         self.fields["profile_pic"].queryset = MultipleAccountImages.objects.filter(
             account=self.instance
         )
+
+
+class UserAdminModelForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = [
+            "permissions",
+        ]
+        widgets = {
+            "permissions": forms.CheckboxSelectMultiple(
+                attrs={
+                    "class": "form-check-input",
+                }
+            )
+        }

@@ -148,7 +148,7 @@
                     <p>You have already submitted your review for this project</p>
                 {% elif request.user == article.owner %}
                     <p>You cannot review your own work</p>
-                {% elif request.user.is_authenticated %}
+                {% elif "default" in request.user.permissions_list %}
                     <h4>Add a review</h4>
                     <div class="row">
                         <div class="col">

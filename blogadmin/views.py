@@ -2,10 +2,11 @@ from django.shortcuts import render
 from .models import BlogInfo, MultipleBlogImages
 from django.views.generic import UpdateView, DeleteView, ListView
 from .forms import BlogInfoForm
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
 from .utils import multiple_blog_image_add
 from account.models import Account
+from account.forms import UserAdminModelForm
 
 # Create your views here.
 
@@ -44,8 +45,6 @@ class DeleteBlogImage(DeleteView):
         return reverse("blog")
 
 
-"""
-
 class UsersView(ListView):
     model = Account
     paginate_by = 4
@@ -72,4 +71,9 @@ class UsersView(ListView):
         else:
             return super().get_queryset().exclude(is_superadmin=True)
 
-"""
+
+class UpdateUserAdminView(UpdateView):
+    template_name = "blogadmin/user_change.html"
+    model = Account
+    form_class = UserAdminModelForm
+    success_url = reverse_lazy("user-admin")

@@ -1,7 +1,7 @@
 from django.shortcuts import reverse
 from django.views.generic import CreateView
 from .forms import ReviewForm
-from account.decorators import authenticated_user
+from account.decorators import authenticated_user, permisions_required
 from django.utils.decorators import method_decorator
 
 
@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 
 
 @method_decorator(authenticated_user, name="dispatch")
+@method_decorator(permisions_required(perm_list=["default"]), name="dispatch")
 class CreateReview(CreateView):
     form_class = ReviewForm
 

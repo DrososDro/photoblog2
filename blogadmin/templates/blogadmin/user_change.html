@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+{% block blockname %}
+    <!--about artist-->
+    <section>
+        <div class="container pt-5">
+            <div class="row py-4 mb-2">
+                <div class="col-md-7 order-2">
+                    <div class="overflow-hidden">
+                        <h2 class="text-color-dark font-weight-bold text-12 mb-2 pt-0 mt-0 appear-animation"
+                            data-appear-animation="maskUp"
+                            data-appear-animation-delay="300">{{ object.full_name|title }}</h2>
+                    </div>
+                    <div class="row align-items-center appear-animation"
+                         data-appear-animation="fadeInUpShorter"
+                         data-appear-animation-delay="1000">
+                        <div class="col text-lg-end my-4 my-lg-0">
+                            <form class="form-style-2"
+                                  action="{% url 'user-change' object.id %}"
+                                  onsubmit="showLoading('loading')"
+                                  method="POST"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="row form-group">
+                                        <label class="form-label mb-1 text-2">{{ field.label }}</label>
+                                        <div class="form-group col ">
+                                            {% for opt in field %}<div class="form-group form-check-inline">{{ opt }}</div>{% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-primary">Update User</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock blockname %}
