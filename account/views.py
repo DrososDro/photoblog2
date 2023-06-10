@@ -145,7 +145,7 @@ class UpdateUser(UpdateView):
 @method_decorator(
     [
         authenticated_user,
-        permisions_required(perm_list=["admin", "artist"]),
+        permisions_required(perm_list=["default"]),
     ],
     name="dispatch",
 )

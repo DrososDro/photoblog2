@@ -23,9 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-abq3ah3k69v8m#rx&ryhzv^jjhtdn)r1evovv8lak=cq5!fu2o"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-"""
 ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
@@ -33,6 +32,7 @@ ALLOWED_HOSTS = [
 """
 ALLOWED_HOSTS = ["photo.drosinakis.com"]
 
+"""
 CSRF_TRUSTED_ORIGINS = ["https://photo.drosinakis.com"]
 
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "account.apps.AccountConfig",
     "blogadmin.apps.BlogadminConfig",
     "storages",
+    "django.contrib.sitemaps",
 ]
 
 MIDDLEWARE = [

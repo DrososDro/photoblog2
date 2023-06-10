@@ -22,12 +22,43 @@ from django.urls import (
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+from django.contrib.sitemaps.views import sitemap
+from articles.models import Article
+from account.models import Account
+from django.contrib.sitemaps import Sitemap
+
+
+class MySitemap(Sitemap):
+    def items(self):
+        # Return the queryset or list of objects to include in the sitemap
+        account = Account.objects.all()
+        articles = Article.objects.all()
+
+        return list(account) + list(articles)
+
+    def location(self, item):
+        # Return the URL for each object in the queryset
+        if isinstance(item, Account):
+            return item.get_URL()
+        elif isinstance(item, Article):
+            return item.get_URL()
+
+
+sitemaps = {"all_urls": MySitemap}
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("articles.urls")),
     path("users/", include("account.urls")),
     path("reviews/", include("reviews.urls")),
     path("blog_admin/", include("blogadmin.urls")),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
