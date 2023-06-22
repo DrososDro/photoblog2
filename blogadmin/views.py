@@ -7,10 +7,18 @@ from django.shortcuts import redirect
 from .utils import multiple_blog_image_add
 from account.models import Account
 from account.forms import UserAdminModelForm
+from account.decorators import authenticated_user, permisions_required
 
 # Create your views here.
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin"]),
+    ],
+    name="dispatch",
+)
 class UpdateBlog(UpdateView):
     model = BlogInfo
     form_class = BlogInfoForm
@@ -29,6 +37,13 @@ class UpdateBlog(UpdateView):
         return redirect(self.get_success_url())
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin"]),
+    ],
+    name="dispatch",
+)
 class DeleteBlogImage(DeleteView):
     model = MultipleBlogImages
     template_name = "delete.html"
@@ -45,6 +60,13 @@ class DeleteBlogImage(DeleteView):
         return reverse("blog")
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin"]),
+    ],
+    name="dispatch",
+)
 class UsersView(ListView):
     model = Account
     paginate_by = 4
@@ -72,6 +94,13 @@ class UsersView(ListView):
             return super().get_queryset().exclude(is_superadmin=True)
 
 
+@method_decorator(
+    [
+        authenticated_user,
+        permisions_required(perm_list=["admin"]),
+    ],
+    name="dispatch",
+)
 class UpdateUserAdminView(UpdateView):
     template_name = "blogadmin/user_change.html"
     model = Account
