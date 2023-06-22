@@ -52,53 +52,46 @@
                                             class="btn btn-dark btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3"
                                             data-loading-text="Loading...">Login</button>
                                     <input type="hidden" name="next" value="{{ next }}">
-                                    <div class="divider">
-                                        <span class="bg-light px-4 position-absolute left-50pct top-50pct transform3dxy-n50">or</span>
-                                    </div>
-                                <a href="#"
-                                   class="btn btn-primary-scale-2 btn-modern w-100 text-transform-none rounded-0 font-weight-bold align-items-center d-inline-flex justify-content-center text-3 py-3"
-                                   data-loading-text="Loading..."><i class="fab fa-facebook text-5 me-2"></i>
-                            Login With Facebook</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        {% else %}
-            <div class="col-md-6 col-lg-5">
-                <h2 class="font-weight-bold text-5 mb-0">Register</h2>
-                <form action="{% url 'register' %}" id="frmSignUp" method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="row">
-                            <div class="form-group col">
-                                <label class="form-label text-color-dark text-3">
-                                    {{ field.label }} <span class="text-color-danger">*</span>
-                                </label>
-                                {{ field }}
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    <div class="row">
-                        <div class="form-group col">
-                            <p class="text-2 mb-2">
-                                Your personal data will be used to support your
-                                experience throughout this website, to manage access to your account, and
-                                for other purposes described in our <a href="#" class="text-decoration-none">privacy policy.</a>
-                            </p>
-                        </div>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <button type="submit"
-                                    class="btn btn-dark btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3"
-                                    data-loading-text="Loading...">Register</button>
-                        </div>
+                {% else %}
+                    <div class="col-md-6 col-lg-5">
+                        <h2 class="font-weight-bold text-5 mb-0">Register</h2>
+                        <form action="{% url 'register' %}" id="frmSignUp" method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label text-color-dark text-3">
+                                            {{ field.label }} <span class="text-color-danger">*</span>
+                                        </label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="form-group col">
+                                    <p class="text-2 mb-2">
+                                        Your personal data will be used to support your
+                                        experience throughout this website, to manage access to your account, and
+                                        for other purposes described in our <a href="#" class="text-decoration-none">privacy policy.</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <button type="submit"
+                                            class="btn btn-dark btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3"
+                                            data-loading-text="Loading...">Register</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-</div>
-</section>
-<!--login register-->
+        </div>
+    </section>
+    <!--login register-->
 {% endblock blockname %}
